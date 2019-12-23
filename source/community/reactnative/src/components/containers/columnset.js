@@ -34,11 +34,13 @@ export class ColumnSet extends React.PureComponent {
 			return children;
 
 		// parse elements
-		payload.columns.map((element, index) => {
+		payload.columns.map((element, index,arr) => {
 			children.push(
 				<Column json={element}
 					columns={payload.columns}
 					key={`ELEMENT-${index}`}
+					isFirst={index === 0}
+					isLast={index === arr.length-1}
 				/>);
 		});
 		return children.map(ChildElement => React.cloneElement(ChildElement, { containerStyle: this.payload.style }));
@@ -46,10 +48,12 @@ export class ColumnSet extends React.PureComponent {
 
 	internalRenderer() {
 		const payload = this.payload;
+		const {containerStyle} = this.props;
+		const isRow = true;
 
 		var columnSetContent = (
-			<ContainerWrapper json={payload} containerStyle={this.props.containerStyle}>
-				<ElementWrapper json={payload} style={styles.defaultBGStyle} isFirst={this.props.isFirst}>
+			<ContainerWrapper json={payload} containerStyle={containerStyle}>
+				<ElementWrapper json={payload} isRow={isRow} style={styles.defaultBGStyle} isFirst={this.props.isFirst}>
 					{this.parsePayload()}
 				</ElementWrapper>
 			</ContainerWrapper>

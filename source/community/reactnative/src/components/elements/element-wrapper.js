@@ -32,10 +32,11 @@ export default class ElementWrapper extends React.Component {
 		const computedStyles = this.getComputedStyles();
 		const showValidationText = this.props.isError && this.context.showErrors;
         const isFirstElement = this.props.isFirst; // Is first element?
+		const isRow = this.props.isRow;
 
 		return (
 			<React.Fragment>
-				{!isFirstElement && this.getSpacingElement()}
+				{!isRow && !isFirstElement  && this.getSpacingElement()}
 				<View style={computedStyles} onLayout={this.props.onPageLayout}>
 					{this.props.children}
 					{showValidationText && this.getValidationText()}
